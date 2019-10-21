@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Graphing Calculator</title>
+  <style>
+    * {
+      padding: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #mainTable {
+      width: 100%;
+      height: 100%;
+    }
+
+    #menu {
+      border-style: inset;
+      border-color: red;
+      border-width: .3em;
+      border-right: none;
+      padding: .5em;
+      padding-right:0;
+    }
+
+    #menu table {
+      width: 100%;
+    }
+
+    .controls input {
+      width: -webkit-fill-available;
+    }
+
+    #checkBoxId {
+      width: 2em;
+    }
+
+    .zoomControls {
+      float: right;
+    }
+
+    .zoomControls button {
+      float: right;
+      width: 3em;
+      height: 3em;
+    }
+
+    .zoomControls input {
+      width: 4em;
+    }
+
+    input,
+    button {
+      height: 4.5vmin;
+    }
+
+    .eqInputs * {
+      width: -webkit-fill-available;
+      margin-top: .5em;
+    }
+
+    .eqInputs input {
+      border-color: lightgray;
+      border-style: groove;
+    }
+
+    button {
+      margin-top: .5em;
+      background-color: red;
+      text-align: center;
+      color: white;
+    }
+
+    .zoomBtn {
+      width: 3em;
+      height: 3em;
+    }
+
+    canvas {
+      border-color: silver;
+      border-style: inset;
+      border-width: .3em;
+    }
+
+    #computedEquationId {
+      height: 5em;
+      font-size: .8em;
+    }
+
+    #resizeSeparatorID {
+      width: .3em;
+      cursor: ew-resize;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="mainTable">
+    <tr>
+      <td id="menu">
+        <table class="eqInputs">
+          <tr>
+            <td>JS Equation:</td>
+          </tr>
+          <tr>
+            <td>
+              <textarea id="computedEquationId" readonly></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" id="equ1" onfocus="focusElem = this.id" />
+              <input type="text" id="equ2" onfocus="focusElem = this.id" />
+              <input type="text" id="equ3" onfocus="focusElem = this.id" />
+              <input type="text" id="equ4" onfocus="focusElem = this.id" />
+              <input type="text" id="equ5" onfocus="focusElem = this.id" />
+              <button onclick="clearAll()">Clear</button>
+            </td>
+          </tr>
+        </table>
+        <table class="controls">
+          <tr>
+            <td>
+              Width:
+            </td>
+            <td>
+              Height:
+            </td>
+            <td>
+              Lock
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="cellWidthId" min="2" max="100" type="number" oninput="onChange(1)" value="10" step="1" />
+            </td>
+            <td>
+              <input id="cellHeightId" min="2" max="100" type="number" oninput="onChange(2)" value="10" step="1" />
+            </td>
+            <td>
+              <input id="checkBoxId" type="checkbox" onchange="onChange(3)" checked />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Color:
+            </td>
+            <td>
+              Thickness:
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="colorPickerId" type="color" value="#FF0000" oninput="onChange()" />
+            </td>
+            <td>
+              <input id="thicknessId" type="number" value="3" min="1" max="20" oninput="onChange()" />
+            </td>
+          </tr>
+        </table>
+        <table class="zoomControls">
+          <tr>
+            <td>
+              x:
+              <input type="number" id="xCoord" oninput="moveX()" value="0"> </input>
+            </td>
+            <td>
+            </td>
+            <td>
+              <button onclick="zoom(-1)">+</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              y:
+              <input type="number" id="yCoord" oninput="moveY()" value="0"> </input>
+            </td>
+            <td>
+            </td>
+            <td>
+              <button onclick="zoom(1)">-</button>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td id="resizeSeparatorID">
+      </td>
+      <td id="canvContainer">
+        <canvas id="canvas"></canvas>
+      </td>
+    </tr>
+  </table>
+  <script src='script.js'></script>
+</body>
+
+</html>
